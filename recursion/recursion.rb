@@ -108,3 +108,44 @@ end
 # p bsearch([1, 2, 3, 4, 5, 6], 0) # => nil
 # p bsearch([1, 2, 3, 4, 5, 7], 6) # => nil
 
+
+def merge_sort(arr)
+    p arr
+    #base case
+    # if arr.length <= 0
+    
+
+
+    middle_idx = (arr.length - 1) / 2
+    #base case
+    lower_half = arr[0..middle_idx]
+    upper_half = arr[middle_idx+1..-1]
+    if lower_half.length == 1 && upper_half.length == 1
+        if (lower_half[0] || upper_half[0]) || (lower_half[0] > upper_half[0])
+            return upper_half + lower_half
+        else 
+            return lower_half + upper_half
+        end
+    end
+    merge_sort(lower_half) + merge_sort(upper_half)
+    #return merge(lower_half, upper_half)
+end
+
+def merge(lower_half, upper_half)
+    #pass 2 arr arguments
+    #have an empty arr
+    #iterate through index of arr
+    #compare arr1 and arr2 at same index
+    #which ever value is smaller goes first, then second
+    #return concatanated array
+end
+
+# p merge_sort([4, 2, 1, 3])
+p merge_sort([38, 27, 43, 3, 9, 82, 10])
+
+
+# [4, 2, 1, 3] 
+# [4, 2], [1, 3]
+# [4], [2], [1], [3]
+# [2, 4], [1, 3]
+# [ 1, 2, 3, 4]
