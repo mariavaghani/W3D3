@@ -65,16 +65,46 @@ def deep_dup(arr)
     dupped
 end
 
-robot_parts = [
-  ["nuts", "bolts", "washers"],
-  ["capacitors", "resistors", "inductors"]
-]
-robot_parts_copy = deep_dup(robot_parts) 
-p robot_parts_copy
-robot_parts_copy[1] << "LEDs"
-p robot_parts[1]
-arr_1  = [1, [2], [3, [4]]]
-arr_1_copy = deep_dup(arr_1)
-arr_1_copy[2][1] << 4
-p arr_1_copy
-p arr_1
+# robot_parts = [
+#   ["nuts", "bolts", "washers"],
+#   ["capacitors", "resistors", "inductors"]
+# ]
+# robot_parts_copy = deep_dup(robot_parts) 
+# p robot_parts_copy
+# robot_parts_copy[1] << "LEDs"
+# p robot_parts[1]
+# arr_1  = [1, [2], [3, [4]]]
+# arr_1_copy = deep_dup(arr_1)
+# arr_1_copy[2][1] << 4
+# p arr_1_copy
+# p arr_1
+
+
+def bsearch(arr, target)
+  return nil unless arr.include?(target)
+  middle_idx = ( arr.length - 1 ) / 2
+
+  return arr.index(target) if arr[middle_idx] == target
+
+ 
+
+  if arr[middle_idx] < target
+    array_to_search = arr[middle_idx+1..-1]
+    idx_to_add = arr[0..middle_idx].length
+  else
+    array_to_search = arr[0...middle_idx]
+    idx_to_add = 0
+  end
+  idx_to_add + bsearch(array_to_search, target)
+  
+end
+
+
+# p bsearch([1, 2, 3], 1) # => 0
+# p bsearch([2, 3, 4, 5], 3) # => 1
+# p bsearch([2, 4, 6, 8, 10], 6) # => 2
+# p bsearch([1, 3, 4, 5, 9], 5) # => 3
+# p bsearch([1, 2, 3, 4, 5, 6], 6) # => 5
+# p bsearch([1, 2, 3, 4, 5, 6], 0) # => nil
+# p bsearch([1, 2, 3, 4, 5, 7], 6) # => nil
+
