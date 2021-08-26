@@ -84,7 +84,7 @@ def bsearch(arr, target)
   return nil unless arr.include?(target)
   middle_idx = ( arr.length - 1 ) / 2
 
-  return arr.index(target) if arr[middle_idx] == target
+  return middle_idx if arr[middle_idx] == target
 
  
 
@@ -156,18 +156,27 @@ end
 
 def subsets(arr)
     #base
-    # p arr
-    return [[]] if arr.empty?
-    # return [[], arr] if arr.length == 1
-    subset = []
-    subset << [arr.pop]
-    subset << arr
-    subset << subsets(arr)
-    subset
+    return [] if arr.length == 0
+    return [[] ,arr] if arr.length == 1
+    
+    subset = [[]]
+    sub_arrs_without_last = subsets(arr.take(arr.length-1))
+    arr_last = arr.last
+    sub_arrs_with_last = []
+    
+    sub_arrs_without_last.each_with_index do |ele, idx|
+      sub_arrs_with_last << sub_arrs_without_last[idx] + [arr_last]
+    end
+
+    subset += sub_arrs_with_last
+    subset += sub_arrs_without_last 
+    subset << [arr_last]
+    subset.uniq
 end
 
 
-# p subsets([]) # => [[]]
-# p subsets([1]) # => [[], [1]]
-# p subsets([1, 2]) # => [[], [1], [2], [1, 2]]
+p subsets([]) # => [[]]
+p subsets([1]) # => [[], [1]]
+p subsets([1, 2]) # => [[], [1], [2], [1, 2]]
 p subsets([1, 2, 3]) # => [[], [1], [2], [1, 2], [3], [1, 3], [2, 3], [1, 2, 3]]
+p subsets([1, 2, 3, 4])
