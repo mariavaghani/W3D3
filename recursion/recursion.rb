@@ -175,8 +175,77 @@ def subsets(arr)
 end
 
 
-p subsets([]) # => [[]]
-p subsets([1]) # => [[], [1]]
-p subsets([1, 2]) # => [[], [1], [2], [1, 2]]
-p subsets([1, 2, 3]) # => [[], [1], [2], [1, 2], [3], [1, 3], [2, 3], [1, 2, 3]]
-p subsets([1, 2, 3, 4])
+# p subsets([]) # => [[]]
+# p subsets([1]) # => [[], [1]]
+# p subsets([1, 2]) # => [[], [1], [2], [1, 2]]
+# p subsets([1, 2, 3]) # => [[], [1], [2], [1, 2], [3], [1, 3], [2, 3], [1, 2, 3]]
+# p subsets([1, 2, 3, 4])
+
+
+def permutations(arr)
+  # base cases
+  return [[]] if arr.empty? 
+  return [arr] if arr.length == 1
+  # print "arr"
+  # p arr
+  last_ele = arr.pop
+  prev_perms = permutations(arr)
+  new_perms = []
+  # print "prev_perms"
+  # p prev_perms
+  prev_perms.each do |perm_arr|
+    new_perms << [last_ele] + perm_arr
+    new_perms << perm_arr + [last_ele]
+    (0...perm_arr.length).each do |idx|
+      new_perms << perm_arr.take(idx) + [last_ele] + perm_arr.drop(idx)
+    end
+  end
+  new_perms.uniq.sort
+end
+
+
+test1 = permutations([1, 2, 3]) # => [[1, 2, 3], [1, 3, 2],
+#                         #     [2, 1, 3], [2, 3, 1],
+#                         #     [3, 1, 2], [3, 2, 1]]
+
+
+
+test1_res = [1, 2, 3].permutation.to_a  # => [[1, 2, 3], [1, 3, 2],
+#     [2, 1, 3], [2, 3, 1],
+#     [3, 1, 2], [3, 2, 1]]
+# puts "TEST 1"
+# p test1
+# p test1_res
+# p test1 == test1_res
+# p test1.length
+# p test1_res.length
+
+# p permutations([])
+# p [].permutation.to_a
+
+# p permutations([1])
+# p [1].permutation.to_a
+
+test2 = permutations([5, 6, 3, 8])
+test2_res = [5, 6, 3, 8].permutation.to_a
+
+puts "TEST 2========="
+
+p test2_res
+p test2
+p test2.sort == test2_res.sort
+p test2.length
+p test2.length
+
+puts "TEST 3========="
+
+test3 = permutations([5, 6, 3, 8, 10])
+test3_res = [5, 6, 3, 8, 10].permutation.to_a
+
+puts "========="
+
+p test3_res
+p test3
+p test3.sort == test3_res.sort
+p test3.length
+p test3.length
